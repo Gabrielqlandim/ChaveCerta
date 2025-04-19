@@ -38,7 +38,7 @@ Este projeto foi criado como parte de um desafio técnico, utilizando Django, Dj
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/chavecerta.git
+git clone https://github.com/Gabrielqlandim/ChaveCerta
 cd chavecerta
 
 # Crie o ambiente virtual
