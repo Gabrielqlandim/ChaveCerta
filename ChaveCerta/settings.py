@@ -72,7 +72,10 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'auth/activate/{uid}/{token}',  
     'USER_CREATE_PASSWORD_RETYPE': True,  
-    'SERIALIZERS': {},
+    'SERIALIZERS': {
+        'user_create': 'user.serializers.CustomUserCreateSerializer',
+        'user': 'user.serializers.CustomUserSerializer',
+    },
 }
 
 # Configurações de envio de e-mails 
