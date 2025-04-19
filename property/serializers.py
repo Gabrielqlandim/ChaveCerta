@@ -11,7 +11,7 @@ class ImovelSerializer(serializers.ModelSerializer):
 
 class ContratoLocacaoSerializer(serializers.ModelSerializer):
     locatario = CustomUserSerializer(read_only=True)
-    imovel = ImovelSerializer(read_only=True)
+    imovel = serializers.PrimaryKeyRelatedField(queryset=Imovel.objects.all())
 
     class Meta:
         model = ContratoLocacao
@@ -26,7 +26,7 @@ class PagamentoSerializer(serializers.ModelSerializer):
 
 class AvaliacaoSerializer(serializers.ModelSerializer):
     usuario = CustomUserSerializer(read_only=True)
-    contrato = ContratoLocacaoSerializer(read_only=True)
+    contrato = serializers.PrimaryKeyRelatedField(queryset=ContratoLocacao.objects.all())
 
     class Meta:
         model = Avaliacao
