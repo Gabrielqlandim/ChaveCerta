@@ -2,6 +2,8 @@ from django.db import models
 
 from user.models import CustomUser
 
+from django.core.exceptions import ValidationError
+
 class Imovel(models.Model):
     TIPO_CHOICES = [
         ('apartamento', 'Apartamento'),
@@ -44,6 +46,16 @@ class ContratoLocacao(models.Model):
     def __str__(self):
         return f"{self.imovel.titulo} - {self.locatario.username}"
 
+    def clean(self):
+        if self.data_fim < self.data_inicio:
+            raise ValidationError("Data final do contrato não pode ser anterior à data inicial.")
+        if not self.imovel.disponivel:
+            raise ValidationError("Imóvel indisponível para locação.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  
+        super().save(*args, **kwargs)
+
 class Pagamento(models.Model):
     contrato = models.ForeignKey(ContratoLocacao, on_delete=models.CASCADE, related_name='pagamentos')
     data_pagamento = models.DateField()
@@ -52,6 +64,14 @@ class Pagamento(models.Model):
 
     def __str__(self):
         return f"{self.contrato} - {self.valor_pago}"
+    
+    def clean(self):
+        if self.contrato.status != 'ativo':
+            raise ValidationError("Pagamentos só podem ser feitos em contratos ativos.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 class Avaliacao(models.Model):
     contrato = models.ForeignKey(ContratoLocacao, on_delete=models.CASCADE, related_name='avaliacoes')
