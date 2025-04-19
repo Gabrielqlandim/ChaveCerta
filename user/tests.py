@@ -28,9 +28,9 @@ class UserTests(APITestCase):
         self.assertIn('Account activation', mail.outbox[0].subject)
 
     def test_activate_user_account(self):
-        """
-        Testa ativação manual de conta (simulando fluxo do Djoser).
-        """
+        
+        #Testa ativação manual de conta 
+        
         # Cria usuário manualmente
         user = CustomUser.objects.create_user(
             username="ativarteste",
@@ -47,7 +47,7 @@ class UserTests(APITestCase):
         token = default_token_generator.make_token(user)
 
         # Agora faz a ativação via API
-        url = '/auth/users/activation/'  # corrigido para URL direta
+        url = '/auth/users/activation/' 
         data = {
             'uid': uid,
             'token': token
