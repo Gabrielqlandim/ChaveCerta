@@ -1,50 +1,42 @@
-"""
-URL configuration for ChaveCerta project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
 
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from rest_framework import permissions
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="API ChaveCerta",
-        default_version='v1',
-        description="Documentação da API de Locação de Imóveis",
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("""
+        <h1>Bem-vindo à API ChaveCerta!</h1>
+        <p>Acesse a documentação da nossa API:</p>
+        <ul>
+            <li><a href='/api/swagger/'>Swagger UI</a></li>
+            <li><a href='/api/redoc/'>ReDoc</a></li>
+        </ul>
+    """)
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
 
-    path('auth/', include('djoser.urls')),  
+    # Autenticação
+    path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    
+    # APIs
     path('api/imovel/', include('property.urls')),
     path('api/user/', include('user.urls')),
     path('api-auth/', include('rest_framework.urls')),
 
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # Documentação automática
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),  # <-- Gera o esquema OpenAPI
+    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # <-- Swagger UI
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),  # <-- Redoc UI
 ]
 
+# Para servir arquivos estáticos e mídia no modo DEBUG
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
