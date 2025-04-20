@@ -1,14 +1,13 @@
-from django.shortcuts import render
-
-from rest_framework import viewsets
+from djoser.views import UserViewSet
+from .serializers import CustomUserCreateSerializer, CustomUserSerializer
 from .models import CustomUser
-from .serializers import CustomUserSerializer
 from .permissions import IsSelfOrReadOnly
 
-class CustomUserViewSet(viewsets.ModelViewSet):
+class CustomUserViewSet(UserViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
     permission_classes = [IsSelfOrReadOnly]
 
-
-
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CustomUserCreateSerializer  # Usa CustomUserCreateSerializer ao criar usuário
+        return CustomUserSerializer  # Usa CustomUserSerializer no restante

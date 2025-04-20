@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
     telefone = models.CharField(max_length=15)
     cpf = models.CharField(max_length=14, unique=True)
     endereco = models.TextField()

@@ -9,10 +9,10 @@ from django.contrib.auth.tokens import default_token_generator
 
 class UserTests(APITestCase):
 
-    #testes positivos
+    # TESTES POSITIVOS
 
     def test_create_user_and_send_activation_email(self):
-        url = '/auth/users/'  
+        url = '/auth/users/'
         data = {
             "username": "novouser",
             "email": "novo@example.com",
@@ -91,7 +91,7 @@ class UserTests(APITestCase):
             "telefone": "81977777777"
         }
         response = self.client.patch(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_login_token(self):
         user = CustomUser.objects.create_user(
@@ -108,20 +108,19 @@ class UserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('auth_token', response.data)
 
-    # testes negativos
+    # TESTES NEGATIVOS
 
-    def test_create_user_without_username(self):
+    def test_create_user_without_email(self):
         url = '/auth/users/'
         data = {
-            # "username" faltando
-            "email": "semusername@example.com",
+            "username": "sememail",
             "password": "senha123456!",
             "re_password": "senha123456!",
             "first_name": "Sem",
-            "last_name": "Username",
+            "last_name": "Email",
             "telefone": "81999999999",
             "cpf": "123.456.789-10",
-            "endereco": "Rua Sem Username"
+            "endereco": "Rua Sem Email"
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -140,18 +139,18 @@ class UserTests(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_create_user_with_existing_username(self):
+    def test_create_user_with_existing_email(self):
         CustomUser.objects.create_user(
-            username="userduplicado",
-            email="user1@example.com",
+            username="useremail",
+            email="duplicado@example.com",
             password="senha123",
             telefone="00000000001",
             cpf="111.111.111-11"
         )
         url = '/auth/users/'
         data = {
-            "username": "userduplicado",  # username duplicado
-            "email": "user2@example.com",
+            "username": "novouser2",
+            "email": "duplicado@example.com",  # email duplicado
             "password": "senhaSecreta123456!",
             "re_password": "senhaSecreta123456!",
             "first_name": "Novo",
