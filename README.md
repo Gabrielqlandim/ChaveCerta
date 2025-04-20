@@ -61,12 +61,38 @@ python manage.py runserver
 
 ## 🧪 Testes Automatizados
 
-Foram implementados os seguintes testes:
+Foram implementados 22 testes automatizados, divididos entre fluxos de sucesso e fluxos de erro.
 
-- Cadastro de imóvel
-- Listagem de imóveis
-- Cadastro de usuário e envio de e-mail de ativação
-- Ativação de conta de usuário
+### Fluxos Felizes
+
+| Teste | O que valida |
+|:------|:-------------|
+| Cadastro de imóvel | Criação de imóvel |
+| Listagem de imóveis | Listar todos imóveis |
+| Listagem de imóveis disponíveis | Listar apenas imóveis disponíveis |
+| Cadastro de contrato de locação | Criação de contrato para imóvel |
+| Listagem de pagamentos pendentes | Listar pagamentos em aberto |
+| Cadastro de avaliação | Avaliar imóvel locado |
+| Cadastro de usuário com envio de ativação | Criar usuário e enviar e-mail |
+| Ativação de conta de usuário | Ativar conta com token válido |
+| Atualização do próprio perfil | Atualizar dados do próprio usuário |
+| Bloqueio de atualização de outro usuário | Não permitir editar perfil alheio |
+| Login de usuário via token | Autenticação de usuário com sucesso |
+
+### Validações de Erro
+
+| Teste | O que valida |
+|:------|:-------------|
+| Criação de imóvel sem título | Impede imóvel sem título |
+| Criação de imóvel com aluguel negativo | Impede imóvel com aluguel negativo |
+| Criação de avaliação sem nota | Impede avaliação sem nota |
+| Criação de contrato sem data de início | Impede contrato sem data inicial |
+| Criação de pagamento sem valor pago | Impede pagamento sem valor pago |
+| Cadastro de usuário sem username | Impede cadastro sem username |
+| Cadastro de usuário com username duplicado | Impede duplicação de username |
+| Ativação de conta com token inválido | Impede ativação inválida |
+| Login com senha errada | Impede autenticação inválida |
+| Atualizar perfil sem estar autenticado | Bloqueia alteração sem login |
 
 
 Para rodar os testes, execute:
