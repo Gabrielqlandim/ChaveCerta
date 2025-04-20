@@ -8,6 +8,10 @@ class ImovelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Imovel
         fields = '__all__'
+    def validate_valor_aluguel(self, value):
+        if value < 0:
+            raise serializers.ValidationError("O valor do aluguel não pode ser negativo.")
+        return value
 
 class ContratoLocacaoSerializer(serializers.ModelSerializer):
     locatario = CustomUserSerializer(read_only=True)
