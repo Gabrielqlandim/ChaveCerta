@@ -2,7 +2,7 @@ from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
 from .models import CustomUser
 
-# Serializer para criação de usuário via Djoser (com campos personalizados e validação de e-mail)
+# Serializer para criação de usuário via Djoser 
 class CustomUserCreateSerializer(BaseUserCreateSerializer):
     re_password = serializers.CharField(write_only=True, required=True)  # Campo extra
 
@@ -24,7 +24,7 @@ class CustomUserCreateSerializer(BaseUserCreateSerializer):
         
     def validate(self, attrs):
         password = attrs.get('password')
-        re_password = attrs.pop('re_password', None)  # Tira re_password para não ir pro create()
+        re_password = attrs.pop('re_password', None)  
 
         if password != re_password:
             raise serializers.ValidationError("As senhas não coincidem.")
