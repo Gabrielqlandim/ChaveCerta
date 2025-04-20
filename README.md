@@ -88,8 +88,8 @@ Foram implementados 22 testes automatizados, divididos entre fluxos de sucesso e
 | Criação de avaliação sem nota | Impede avaliação sem nota |
 | Criação de contrato sem data de início | Impede contrato sem data inicial |
 | Criação de pagamento sem valor pago | Impede pagamento sem valor pago |
-| Cadastro de usuário sem username | Impede cadastro sem username |
-| Cadastro de usuário com username duplicado | Impede duplicação de username |
+| Cadastro de usuário sem email | Impede cadastro sem email |
+| Cadastro de usuário com email duplicado | Impede duplicação de email |
 | Ativação de conta com token inválido | Impede ativação inválida |
 | Login com senha errada | Impede autenticação inválida |
 | Atualizar perfil sem estar autenticado | Bloqueia alteração sem login |
