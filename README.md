@@ -104,5 +104,5 @@ python manage.py test
 
 ## 📄 Documentação:
 
-- [Swagger UI](http://localhost:8000/swagger/)
-- [ReDoc](http://localhost:8000/redoc/)
+- [Swagger UI](http://localhost:8000/swagger/) — Para visualizar o Swagger, é necessário rodar o servidor Django.
+- [ReDoc](http://localhost:8000/redoc/) — Também precisa do servidor rodando.
