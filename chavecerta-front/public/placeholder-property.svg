@@ -1,0 +1,12 @@
+<!-- Placeholder SVG para propriedades -->
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f3f4f6"/>
+  <path d="M80 150L160 70L240 150L320 70" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  <rect x="100" y="180" width="200" height="80" rx="8" fill="#e5e7eb"/>
+  <rect x="120" y="200" width="40" height="40" rx="4" fill="#d1d5db"/>
+  <rect x="180" y="200" width="40" height="40" rx="4" fill="#d1d5db"/>
+  <rect x="240" y="200" width="40" height="40" rx="4" fill="#d1d5db"/>
+  <circle cx="200" cy="100" r="20" fill="#3b82f6"/>
+  <path d="M190 100L195 105L210 90" stroke="white" stroke-width="2" fill="none"/>
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Imagem do Imóvel</text>
+</svg>
