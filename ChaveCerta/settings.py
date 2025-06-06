@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
 
+    'corsheaders', # Adicionado para CORS
+
     'user',
     'property',
 ]
@@ -86,6 +88,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # Adicionado para CORS
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,3 +172,32 @@ AUTH_USER_MODEL = 'user.CustomUser'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configurações de CORS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Adicione a URL do seu frontend Next.js
+    "http://127.0.0.1:3000", # Adicione a URL do seu frontend Next.js
+]
+
+# Opcional: Se você quiser permitir todos os origins (não recomendado para produção)
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# Opcional: Se você precisar permitir métodos específicos
+# CORS_ALLOW_METHODS = [
+#     "DELETE",
+#     "GET",
+#     "OPTIONS",
+#     "PATCH",
+#     "POST",
+#     "PUT",
+# ]
+
+# Opcional: Se você precisar permitir headers específicos
+# CORS_ALLOW_HEADERS = [
+#     "accept",
+#     "authorization",
+#     "content-type",
+#     "user-agent",
+#     "x-csrftoken",
+#     "x-requested-with",
+# ]
